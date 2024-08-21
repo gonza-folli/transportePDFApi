@@ -5,6 +5,10 @@ namespace transportePDFApi.Services
 {
     public interface IReportService
     {
-        byte[] generateReportVehiculoMunicipal(IDictionary<string, Action<PdfFormField, string, VehiculoMunicipalModel>> fieldKeyActionBinding, VehiculoMunicipalModel formularioModel);
+        byte[] generateReportVehiculoMunicipal(IDictionary<string, Action<PdfFormField, string, ReporteCAUModel>> fieldKeyActionBinding, ReporteCAUModel formularioModel);
+        byte[] generateReportCauA1(IDictionary<string, Action<PdfFormField, string, ReporteCAUModel>> fieldKeyActionBinding, ReporteCAUModel formularioModel);
+        byte[] generateReportCauA2(IDictionary<string, Action<PdfFormField, string, ReporteCAUModel>> fieldKeyActionBinding, ReporteCAUModel formularioModel);
+        byte[] generateReportCauB1(IDictionary<string, Action<PdfFormField, string, ReporteCAUModel>> fieldKeyActionBinding, ReporteCAUModel formularioModel);
+        byte[] generateReportCauB2(IDictionary<string, Action<PdfFormField, string, ReporteCAUModel>> fieldKeyActionBinding, ReporteCAUModel formularioModel);
     }
 }

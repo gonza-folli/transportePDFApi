@@ -1,10 +1,11 @@
 ﻿namespace transportePDFApi.Model
 {
-    public class VehiculoMunicipalModel
+    public class ReporteCAUModel
     {
         public string EXPEDIENTE {get; set;}
         public string LOCALIDAD { get; set; }
         public string NROCAU { get; set; }
+        public string NRO_CAU { get; set; }
         public string MODALIDAD { get; set; }
         public string CUIT { get; set; }
         public string DOMINIO { get; set; }

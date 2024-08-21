@@ -14,16 +14,17 @@ namespace transportePDFApi.Controllers
     [Route("[controller]")]
     public class ReportController : ControllerBase
     {
-        private readonly IDictionary<string, Action<PdfFormField, string, VehiculoMunicipalModel>> _fieldKeyActionBinding;
+        private readonly IDictionary<string, Action<PdfFormField, string, ReporteCAUModel>> _fieldKeyActionBinding;
         private readonly IReportService _reportService;
 
         public ReportController(IReportService reportService   ) {
 
-            _fieldKeyActionBinding = new Dictionary<string, Action<PdfFormField, string, VehiculoMunicipalModel>>
+            _fieldKeyActionBinding = new Dictionary<string, Action<PdfFormField, string, ReporteCAUModel>>
                 {
                     {"EXPEDIENTE", VehiculosMunicipalidadesReportHelper.SetExpedienteField},
                     {"LOCALIDAD", VehiculosMunicipalidadesReportHelper.SetLocalidadField},
                     {"NROCAU", VehiculosMunicipalidadesReportHelper.SetNroCauField},
+                    {"NRO_CAU", VehiculosMunicipalidadesReportHelper.SetNroCauField},
                     {"MODALIDAD", VehiculosMunicipalidadesReportHelper.SetModalidadField},
                     {"CUIT", VehiculosMunicipalidadesReportHelper.SetCuitField},
                     {"DOMINIO", VehiculosMunicipalidadesReportHelper.SetDominioField},
@@ -51,20 +52,17 @@ namespace transportePDFApi.Controllers
         }
 
 
-
-
-
-
-        [HttpGet("vehiculomunicipal",   Name = "GetReportVehiculoMunicipal")]
+        [HttpGet("ReportCAU",   Name = "GetReportCAU")]
         public IActionResult GetReporteVehículosMunicipalidades ()
         {
 
             //Obtengo de la DB el modelo
-            VehiculoMunicipalModel vehiculoMunicipalModel = new VehiculoMunicipalModel()
+            ReporteCAUModel reporteCAUModel = new ReporteCAUModel()
             {
                 EXPEDIENTE = "EXP-2024-12345",
                 LOCALIDAD = "Buenos Aires",
                 NROCAU = "CAU-67890",
+                NRO_CAU = "CAU-22222",
                 MODALIDAD = "Arrendamiento",
                 CUIT = "20304050607",
                 DOMINIO = "ABC123",
@@ -90,11 +88,10 @@ namespace transportePDFApi.Controllers
 
 
 
-            byte[] bytes = _reportService.generateReportVehiculoMunicipal(_fieldKeyActionBinding, vehiculoMunicipalModel);
-
-            //pdfDoc.Close();
-
-            //byte[] bytes = pdfStream.ToArray();
+            //byte[] bytes = _reportService.generateReportVehiculoMunicipal(_fieldKeyActionBinding, reporteCAUModel);
+            byte[] bytes = _reportService.generateReportCauA1(_fieldKeyActionBinding, reporteCAUModel);
+            //byte[] bytes = _reportService.generateReportVehiculoMunicipal(_fieldKeyActionBinding, reporteCAUModel);
+            //byte[] bytes = _reportService.generateReportVehiculoMunicipal(_fieldKeyActionBinding, reporteCAUModel);
 
             return File(bytes, "application/pdf", "nombreDePrueba");
 
