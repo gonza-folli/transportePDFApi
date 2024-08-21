@@ -14,38 +14,38 @@ namespace transportePDFApi.Controllers
     [Route("[controller]")]
     public class ReportController : ControllerBase
     {
-        private readonly IDictionary<string, Action<PdfFormField, string, ReporteCAUModel>> _fieldKeyActionBinding;
+        //private readonly IDictionary<string, Action<PdfFormField, string, ReporteCAUModel>> _fieldKeyActionBinding;
         private readonly IReportService _reportService;
 
-        public ReportController(IReportService reportService   ) {
+        public ReportController(IReportService reportService) {
 
-            _fieldKeyActionBinding = new Dictionary<string, Action<PdfFormField, string, ReporteCAUModel>>
-                {
-                    {"EXPEDIENTE", ReporteCAUHelper.SetExpedienteField},
-                    {"LOCALIDAD", ReporteCAUHelper.SetLocalidadField},
-                    {"NROCAU", ReporteCAUHelper.SetNroCauField},
-                    {"NRO_CAU", ReporteCAUHelper.SetNroCauField},
-                    {"MODALIDAD", ReporteCAUHelper.SetModalidadField},
-                    {"CUIT", ReporteCAUHelper.SetCuitField},
-                    {"DOMINIO", ReporteCAUHelper.SetDominioField},
-                    {"INSCRIPCION_DNRPA", ReporteCAUHelper.SetInscripcionDNRPAField},
-                    {"CODIGO_DGT", ReporteCAUHelper.SetCodigoDGTField},
-                    {"MUNICIPALIDAD", ReporteCAUHelper.SetMunicipalidadField},
-                    {"LOCACION", ReporteCAUHelper.SetLocacionField},
-                    {"VENCIMIENTO", ReporteCAUHelper.SetVencimientoField},
-                    {"MARCA_1", ReporteCAUHelper.SetMarca1Field},
-                    {"MODELO_1", ReporteCAUHelper.SetModelo1Field},
-                    {"NRO_1", ReporteCAUHelper.SetNro1Field},
-                    {"MARCA_2", ReporteCAUHelper.SetMarca2Field},
-                    {"NRO_2", ReporteCAUHelper.SetNro2Field},
-                    {"MARCA_3", ReporteCAUHelper.SetMarca3Field},
-                    {"MODELO_3", ReporteCAUHelper.SetModelo3Field},
-                    {"ASIENTOS", ReporteCAUHelper.SetAsientosField},
-                    {"MARCA_4", ReporteCAUHelper.SetMarca4Field},
-                    {"NRO_4", ReporteCAUHelper.SetNro4Field},
-                    {"FECHA_EMISION", ReporteCAUHelper.SetFechaEmisionField},
-                    {"FECHA_VIGENCIA", ReporteCAUHelper.SetFechaVigenciaField}
-                };
+            //_fieldKeyActionBinding = new Dictionary<string, Action<PdfFormField, string, ReporteCAUModel>>
+            //    {
+            //        {"EXPEDIENTE", ReporteCAUHelper.SetExpedienteField},
+            //        {"LOCALIDAD", ReporteCAUHelper.SetLocalidadField},
+            //        {"NROCAU", ReporteCAUHelper.SetNroCauField},
+            //        {"NRO_CAU", ReporteCAUHelper.SetNroCauField},
+            //        {"MODALIDAD", ReporteCAUHelper.SetModalidadField},
+            //        {"CUIT", ReporteCAUHelper.SetCuitField},
+            //        {"DOMINIO", ReporteCAUHelper.SetDominioField},
+            //        {"INSCRIPCION_DNRPA", ReporteCAUHelper.SetInscripcionDNRPAField},
+            //        {"CODIGO_DGT", ReporteCAUHelper.SetCodigoDGTField},
+            //        {"MUNICIPALIDAD", ReporteCAUHelper.SetMunicipalidadField},
+            //        {"LOCACION", ReporteCAUHelper.SetLocacionField},
+            //        {"VENCIMIENTO", ReporteCAUHelper.SetVencimientoField},
+            //        {"MARCA_1", ReporteCAUHelper.SetMarca1Field},
+            //        {"MODELO_1", ReporteCAUHelper.SetModelo1Field},
+            //        {"NRO_1", ReporteCAUHelper.SetNro1Field},
+            //        {"MARCA_2", ReporteCAUHelper.SetMarca2Field},
+            //        {"NRO_2", ReporteCAUHelper.SetNro2Field},
+            //        {"MARCA_3", ReporteCAUHelper.SetMarca3Field},
+            //        {"MODELO_3", ReporteCAUHelper.SetModelo3Field},
+            //        {"ASIENTOS", ReporteCAUHelper.SetAsientosField},
+            //        {"MARCA_4", ReporteCAUHelper.SetMarca4Field},
+            //        {"NRO_4", ReporteCAUHelper.SetNro4Field},
+            //        {"FECHA_EMISION", ReporteCAUHelper.SetFechaEmisionField},
+            //        {"FECHA_VIGENCIA", ReporteCAUHelper.SetFechaVigenciaField}
+            //    };
 
             _reportService = reportService;
 
@@ -53,7 +53,7 @@ namespace transportePDFApi.Controllers
 
 
         [HttpGet("ReportCAU",   Name = "GetReportCAU")]
-        public IActionResult GetReporteVehículosMunicipalidades ()
+        public IActionResult GetReporteVehiculosMunicipalidades ()
         {
 
 
@@ -101,7 +101,8 @@ namespace transportePDFApi.Controllers
 
 
             //byte[] bytes = _reportService.generateReportVehiculoMunicipal(_fieldKeyActionBinding, reporteCAUModel);
-            byte[] bytes = _reportService.generateReportCauA1(_fieldKeyActionBinding, reporteCAUModel);
+            //byte[] bytes = _reportService.generateReportCauA1(_fieldKeyActionBinding, reporteCAUModel);
+            byte[] bytes = _reportService.generateReport(reporteCAUModel, "CAU Vehiculos de Municipalidades (c).pdf");
             //byte[] bytes = _reportService.generateReportVehiculoMunicipal(_fieldKeyActionBinding, reporteCAUModel);
             //byte[] bytes = _reportService.generateReportVehiculoMunicipal(_fieldKeyActionBinding, reporteCAUModel);
 
