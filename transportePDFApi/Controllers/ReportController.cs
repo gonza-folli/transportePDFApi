@@ -25,11 +25,23 @@ namespace transportePDFApi.Controllers
                     {"MODALIDAD", VehiculosMunicipalidadesReportHelper.SetModalidadField},
                     {"CUIT", VehiculosMunicipalidadesReportHelper.SetCuitField},
                     {"DOMINIO", VehiculosMunicipalidadesReportHelper.SetDominioField},
-
-
-                    //{"CaeExpiration", InvoiceReportHelper.SetCaeExpirationField},
-                    //{"Date", InvoiceReportHelper.SetDateField},
-                    //{"City", InvoiceReportHelper.SetCityField},
+                    {"INSCRIPCION_DNRPA", VehiculosMunicipalidadesReportHelper.SetInscripcionDNRPAField},
+                    {"CODIGO_DGT", VehiculosMunicipalidadesReportHelper.SetCodigoDGTField},
+                    {"MUNICIPALIDAD", VehiculosMunicipalidadesReportHelper.SetMunicipalidadField},
+                    {"LOCACION", VehiculosMunicipalidadesReportHelper.SetLocacionField},
+                    {"VENCIMIENTO", VehiculosMunicipalidadesReportHelper.SetVencimientoField},
+                    {"MARCA_1", VehiculosMunicipalidadesReportHelper.SetMarca1Field},
+                    {"MODELO_1", VehiculosMunicipalidadesReportHelper.SetModelo1Field},
+                    {"NRO_1", VehiculosMunicipalidadesReportHelper.SetNro1Field},
+                    {"MARCA_2", VehiculosMunicipalidadesReportHelper.SetMarca2Field},
+                    {"NRO_2", VehiculosMunicipalidadesReportHelper.SetNro2Field},
+                    {"MARCA_3", VehiculosMunicipalidadesReportHelper.SetMarca3Field},
+                    {"MODELO_3", VehiculosMunicipalidadesReportHelper.SetModelo3Field},
+                    {"ASIENTOS", VehiculosMunicipalidadesReportHelper.SetAsientosField},
+                    {"MARCA_4", VehiculosMunicipalidadesReportHelper.SetMarca4Field},
+                    {"NRO_4", VehiculosMunicipalidadesReportHelper.SetNro4Field},
+                    {"FECHA_EMISION", VehiculosMunicipalidadesReportHelper.SetFechaEmisionField},
+                    {"FECHA_VIGENCIA", VehiculosMunicipalidadesReportHelper.SetFechaVigenciaField}
                 };
         }
 
@@ -42,32 +54,31 @@ namespace transportePDFApi.Controllers
             //Obtengo de la DB el modelo
             VehiculoMunicipalModel vehiculoMunicipalModel = new VehiculoMunicipalModel()
             {
-                EXPEDIENTE = 12345,
+                EXPEDIENTE = "EXP-2024-12345",
                 LOCALIDAD = "Buenos Aires",
-                NROCAU = 67890,
-                MODALIDAD = 1,
-                CUIT = "20123456789",
+                NROCAU = "CAU-67890",
+                MODALIDAD = "Arrendamiento",
+                CUIT = "20304050607",
                 DOMINIO = "ABC123",
-                INSCRIPCION_DNRPA = "DNRPA987654",
-                CODIGO_DGT = "DGT123456",
+                INSCRIPCION_DNRPA = "123456789",
+                CODIGO_DGT = "DGT987654",
                 MUNICIPALIDAD = "La Plata",
-                LOCACION = "Av. 123",
+                LOCACION = "Avenida Siempreviva 742",
                 VENCIMIENTO = new DateTime(2025, 12, 31),
                 MARCA_1 = "Ford",
                 MODELO_1 = "Fiesta",
-                NRO_1 = "XY12345",
+                NRO_1 = "NRO001",
                 MARCA_2 = "Chevrolet",
-                MODELO_2 = "Corsa",
-                NRO_2 = "YZ67890",
-                MARCA_3 = "Volkswagen",
-                MODELO_3 = "Golf",
-                NRO_3 = "ZX09876",
+                NRO_2 = "NRO002",
+                MARCA_3 = "Toyota",
+                MODELO_3 = "Corolla",
                 ASIENTOS = "5",
-                MARCA_4 = "Renault",
-                NRO_4 = "RN56789",
-                FECHA_EMISION = new DateTime(2023, 08, 19),
-                FECHA_VIGENCIA = new DateTime(2024, 08, 19)
+                MARCA_4 = "Volkswagen",
+                NRO_4 = "NRO004",
+                FECHA_EMISION = DateTime.Now,
+                FECHA_VIGENCIA = new DateTime(2025, 12, 31)
             };
+
 
 
 
@@ -84,11 +95,8 @@ namespace transportePDFApi.Controllers
             PdfAcroForm form = PdfAcroForm.GetAcroForm(pdfDoc, false);
             // Obtiene los campos del formulario
             IDictionary<string, PdfFormField> fields = form.GetAllFormFields();
+            
             // Itera sobre los campos del formulario
-
-            //fields.TryGetValue("EXPEDIENTE", out PdfFormField fieldCuit);
-            //fieldCuit.SetValue("20146221638");
-
             foreach (KeyValuePair<string, PdfFormField> field in fields)
             {
                 string fieldName = field.Key;
@@ -97,10 +105,9 @@ namespace transportePDFApi.Controllers
                 {
                     action.Invoke(fieldValue, fieldName, vehiculoMunicipalModel);
                 }
-                //PdfFormField fieldValue = field.Value;
+
                 Console.WriteLine($"Nombre del Campo: {fieldName}, Valor del Campo: {fieldValue.GetValueAsString()}");
             }
-
 
             pdfDoc.Close();
 
