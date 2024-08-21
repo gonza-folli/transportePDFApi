@@ -3,7 +3,7 @@ using transportePDFApi.Model;
 
 namespace transportePDFApi.Helpers
 {
-    public class VehiculosMunicipalidadesReportHelper
+    public class ReporteCAUHelper
     {
         public static void SetExpedienteField(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
         {
