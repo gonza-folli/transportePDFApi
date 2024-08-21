@@ -6,6 +6,7 @@ using iText.Forms.Fields;
 using System.Linq;
 using transportePDFApi.Helpers;
 using transportePDFApi.Model;
+using transportePDFApi.Services;
 
 namespace transportePDFApi.Controllers
 {
@@ -14,8 +15,9 @@ namespace transportePDFApi.Controllers
     public class ReportController : ControllerBase
     {
         private readonly IDictionary<string, Action<PdfFormField, string, VehiculoMunicipalModel>> _fieldKeyActionBinding;
+        private readonly IReportService _reportService;
 
-        public ReportController() {
+        public ReportController(IReportService reportService   ) {
 
             _fieldKeyActionBinding = new Dictionary<string, Action<PdfFormField, string, VehiculoMunicipalModel>>
                 {
@@ -31,11 +33,17 @@ namespace transportePDFApi.Controllers
                     //{"Date", InvoiceReportHelper.SetDateField},
                     //{"City", InvoiceReportHelper.SetCityField},
                 };
+
+            _reportService = reportService;
+
         }
 
 
 
-        [HttpGet(Name = "GetReport")]
+
+
+
+        [HttpGet("vehiculomunicipal",   Name = "GetReportVehiculoMunicipal")]
         public IActionResult GetReporteVehículosMunicipalidades ()
         {
 
@@ -71,40 +79,8 @@ namespace transportePDFApi.Controllers
 
 
 
-            var pdfStream = new MemoryStream();
 
-            string pdfPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Reportes", "CAU Vehiculos de Municipalidades (c).pdf");
-
-            // Abre el PDF
-            PdfReader pdfReader = new PdfReader(pdfPath);
-            pdfReader.SetUnethicalReading(true);
-
-            PdfDocument pdfDoc = new PdfDocument(pdfReader, new PdfWriter(pdfStream));
-
-            PdfAcroForm form = PdfAcroForm.GetAcroForm(pdfDoc, false);
-            // Obtiene los campos del formulario
-            IDictionary<string, PdfFormField> fields = form.GetAllFormFields();
-            // Itera sobre los campos del formulario
-
-            //fields.TryGetValue("EXPEDIENTE", out PdfFormField fieldCuit);
-            //fieldCuit.SetValue("20146221638");
-
-            foreach (KeyValuePair<string, PdfFormField> field in fields)
-            {
-                string fieldName = field.Key;
-                PdfFormField fieldValue = field.Value;
-                if (_fieldKeyActionBinding.TryGetValue(fieldName, out var action ))
-                {
-                    action.Invoke(fieldValue, fieldName, vehiculoMunicipalModel);
-                }
-                //PdfFormField fieldValue = field.Value;
-                Console.WriteLine($"Nombre del Campo: {fieldName}, Valor del Campo: {fieldValue.GetValueAsString()}");
-            }
-
-
-            pdfDoc.Close();
-
-            byte[] bytes = pdfStream.ToArray();
+            byte[] bytes = _reportService.generateReportVehiculoMunicipal(_fieldKeyActionBinding, vehiculoMunicipalModel);
 
             return File(bytes, "application/pdf", "nombreDePrueba");
 
