@@ -15,11 +15,27 @@ namespace transportePDFApi.Helpers
         }
         public static void SetNroCauField(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
         {
-            form.SetValue(ReporteCAUModel.NROCAU.ToString());
+            form.SetValue(ReporteCAUModel.NRO_CAU.ToString());
         }
         public static void SetModalidadField(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
         {
             form.SetValue(ReporteCAUModel.MODALIDAD.ToString());
+        }
+        public static void SetAntiguedadField(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
+        {
+            form.SetValue(ReporteCAUModel.ANTIGUEDAD_MODELO.ToString());
+        }
+        public static void SetChapaField(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
+        {
+            form.SetValue(ReporteCAUModel.CHAPA_ST.ToString());
+        }
+        public static void SetEmpresaField(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
+        {
+            form.SetValue(ReporteCAUModel.EMPRESA.ToString());
+        }
+        public static void SetNombreFantasiaField(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
+        {
+            form.SetValue(ReporteCAUModel.NOMBRE_FANTASIA.ToString());
         }
         public static void SetCuitField(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
         {
@@ -75,7 +91,7 @@ namespace transportePDFApi.Helpers
         }
         public static void SetModelo3Field(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
         {
-            form.SetValue(ReporteCAUModel.MODELO_3.ToString());
+            form.SetValue(ReporteCAUModel?.MODELO_3?.ToString());
         }
         public static void SetAsientosField(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
         {
@@ -88,6 +104,14 @@ namespace transportePDFApi.Helpers
         public static void SetNro4Field(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
         {
             form.SetValue(ReporteCAUModel.NRO_4.ToString());
+        }
+        public static void SetMarca5Field(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
+        {
+            form.SetValue(ReporteCAUModel.MARCA_5.ToString());
+        }
+        public static void SetNro5Field(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
+        {
+            form.SetValue(ReporteCAUModel.NRO_5.ToString());
         }
         public static void SetFechaEmisionField(PdfFormField form, string fieldKey, ReporteCAUModel ReporteCAUModel)
         {

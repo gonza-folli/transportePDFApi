@@ -18,9 +18,12 @@ namespace transportePDFApi.Services
                 {
                     {"EXPEDIENTE", ReporteCAUHelper.SetExpedienteField},
                     {"LOCALIDAD", ReporteCAUHelper.SetLocalidadField},
-                    {"NROCAU", ReporteCAUHelper.SetNroCauField},
                     {"NRO_CAU", ReporteCAUHelper.SetNroCauField},
                     {"MODALIDAD", ReporteCAUHelper.SetModalidadField},
+                    {"ANTIGUEDAD_MODELO", ReporteCAUHelper.SetAntiguedadField},
+                    {"CHAPA_ST", ReporteCAUHelper.SetChapaField},
+                    {"EMPRESA", ReporteCAUHelper.SetEmpresaField},
+                    {"NOMBRE_FANTASIA", ReporteCAUHelper.SetNombreFantasiaField},
                     {"CUIT", ReporteCAUHelper.SetCuitField},
                     {"DOMINIO", ReporteCAUHelper.SetDominioField},
                     {"INSCRIPCION_DNRPA", ReporteCAUHelper.SetInscripcionDNRPAField},
@@ -38,6 +41,8 @@ namespace transportePDFApi.Services
                     {"ASIENTOS", ReporteCAUHelper.SetAsientosField},
                     {"MARCA_4", ReporteCAUHelper.SetMarca4Field},
                     {"NRO_4", ReporteCAUHelper.SetNro4Field},
+                    {"MARCA_5", ReporteCAUHelper.SetMarca5Field},
+                    {"NRO_5", ReporteCAUHelper.SetNro5Field},
                     {"FECHA_EMISION", ReporteCAUHelper.SetFechaEmisionField},
                     {"FECHA_VIGENCIA", ReporteCAUHelper.SetFechaVigenciaField}
                 };

@@ -24,25 +24,28 @@ namespace transportePDFApi.Controllers
         [HttpGet("ReportCAUVehiculosMunicipales",   Name = "GetReportCAUVehiculosMunicipales")]
         public IActionResult GetReporteVehiculosMunicipalidades ()
         {
-             /*
-             TODO:
-            -a. Crear un endpoint de GET generico que reciba "nombre de reporte" a generar
-            -b. Este endpoint tambien tiene que recibir los datos necesarios para llenar el PDF, probablemente un ID para ir a buscar a una fuente de datos externa
-            -.Si vamos a tener que procesar datos externos, vamos a necesitar crear un HttpClient para consultar esa fuente de datos, Y generar una interfaz o servicio para 
-            -que el procesamiento de estos datos vaya por otro lado
-            -c. En la imple de ReportService, refactorizar el uso de la libreria IText para no repetir codigo. Prestar atencion que la utilidad PdfAcroForm.GetAcroForm obtiene el formulario proveniente de la metadata del PDF
-            -d. Con el IReportService, tambien se podria refactorizar el hecho de tener varios metodos con los mismos parametros y que termine siendo uno solo, dentro del cual se llama al metodo propio de la implementacion apropiado
+            /*
+            TODO:
+           -a. Crear un endpoint de GET generico que reciba "nombre de reporte" a generar
+           -b. Este endpoint tambien tiene que recibir los datos necesarios para llenar el PDF, probablemente un ID para ir a buscar a una fuente de datos externa
+           -.Si vamos a tener que procesar datos externos, vamos a necesitar crear un HttpClient para consultar esa fuente de datos, Y generar una interfaz o servicio para 
+           -que el procesamiento de estos datos vaya por otro lado
+           -c. En la imple de ReportService, refactorizar el uso de la libreria IText para no repetir codigo. Prestar atencion que la utilidad PdfAcroForm.GetAcroForm obtiene el formulario proveniente de la metadata del PDF
+           -d. Con el IReportService, tambien se podria refactorizar el hecho de tener varios metodos con los mismos parametros y que termine siendo uno solo, dentro del cual se llama al metodo propio de la implementacion apropiado
 
-             * */
+            * */
 
             //Obtengo de la DB el modelo
             ReporteCAUModel reporteCAUModel = new ReporteCAUModel()
             {
                 EXPEDIENTE = "EXP-2024-12345",
                 LOCALIDAD = "Buenos Aires",
-                NROCAU = "CAU-67890",
                 NRO_CAU = "CAU-22222",
                 MODALIDAD = "Arrendamiento",
+                ANTIGUEDAD_MODELO = "12 años",
+                CHAPA_ST = "518484",
+                EMPRESA = "Pepito SA",
+                NOMBRE_FANTASIA = "El viejo atuel",
                 CUIT = "20304050607",
                 DOMINIO = "ABC123",
                 INSCRIPCION_DNRPA = "123456789",
@@ -60,6 +63,8 @@ namespace transportePDFApi.Controllers
                 ASIENTOS = "5",
                 MARCA_4 = "Volkswagen",
                 NRO_4 = "NRO004",
+                MARCA_5 = "Audi",
+                NRO_5 = "NRO005",
                 FECHA_EMISION = DateTime.Now,
                 FECHA_VIGENCIA = new DateTime(2025, 12, 31)
             };
@@ -79,9 +84,12 @@ namespace transportePDFApi.Controllers
             {
                 EXPEDIENTE = "EXP-2024-12345",
                 LOCALIDAD = "Buenos Aires",
-                NROCAU = "CAU-67890",
                 NRO_CAU = "CAU-22222",
                 MODALIDAD = "Arrendamiento",
+                ANTIGUEDAD_MODELO = "12 años",
+                CHAPA_ST = "518484",
+                EMPRESA = "Pepito SA",
+                NOMBRE_FANTASIA = "El viejo atuel",
                 CUIT = "20304050607",
                 DOMINIO = "ABC123",
                 INSCRIPCION_DNRPA = "123456789",
@@ -99,6 +107,8 @@ namespace transportePDFApi.Controllers
                 ASIENTOS = "5",
                 MARCA_4 = "Volkswagen",
                 NRO_4 = "NRO004",
+                MARCA_5 = "Audi",
+                NRO_5 = "NRO005",
                 FECHA_EMISION = DateTime.Now,
                 FECHA_VIGENCIA = new DateTime(2025, 12, 31)
             };
@@ -118,9 +128,12 @@ namespace transportePDFApi.Controllers
             {
                 EXPEDIENTE = "EXP-2024-12345",
                 LOCALIDAD = "Buenos Aires",
-                NROCAU = "CAU-67890",
                 NRO_CAU = "CAU-22222",
                 MODALIDAD = "Arrendamiento",
+                ANTIGUEDAD_MODELO = "12 años",
+                CHAPA_ST = "518484",
+                EMPRESA = "Pepito SA",
+                NOMBRE_FANTASIA = "El viejo atuel",
                 CUIT = "20304050607",
                 DOMINIO = "ABC123",
                 INSCRIPCION_DNRPA = "123456789",
@@ -138,6 +151,8 @@ namespace transportePDFApi.Controllers
                 ASIENTOS = "5",
                 MARCA_4 = "Volkswagen",
                 NRO_4 = "NRO004",
+                MARCA_5 = "Audi",
+                NRO_5 = "NRO005",
                 FECHA_EMISION = DateTime.Now,
                 FECHA_VIGENCIA = new DateTime(2025, 12, 31)
             };
@@ -157,9 +172,12 @@ namespace transportePDFApi.Controllers
             {
                 EXPEDIENTE = "EXP-2024-12345",
                 LOCALIDAD = "Buenos Aires",
-                NROCAU = "CAU-67890",
                 NRO_CAU = "CAU-22222",
                 MODALIDAD = "Arrendamiento",
+                ANTIGUEDAD_MODELO = "12 años",
+                CHAPA_ST = "518484",
+                EMPRESA = "Pepito SA",
+                NOMBRE_FANTASIA = "El viejo atuel",
                 CUIT = "20304050607",
                 DOMINIO = "ABC123",
                 INSCRIPCION_DNRPA = "123456789",
@@ -177,6 +195,8 @@ namespace transportePDFApi.Controllers
                 ASIENTOS = "5",
                 MARCA_4 = "Volkswagen",
                 NRO_4 = "NRO004",
+                MARCA_5 = "Audi",
+                NRO_5 = "NRO005",
                 FECHA_EMISION = DateTime.Now,
                 FECHA_VIGENCIA = new DateTime(2025, 12, 31)
             };
@@ -196,9 +216,12 @@ namespace transportePDFApi.Controllers
             {
                 EXPEDIENTE = "EXP-2024-12345",
                 LOCALIDAD = "Buenos Aires",
-                NROCAU = "CAU-67890",
                 NRO_CAU = "CAU-22222",
                 MODALIDAD = "Arrendamiento",
+                ANTIGUEDAD_MODELO = "12 años",
+                CHAPA_ST = "518484",
+                EMPRESA = "Pepito SA",
+                NOMBRE_FANTASIA = "El viejo atuel",
                 CUIT = "20304050607",
                 DOMINIO = "ABC123",
                 INSCRIPCION_DNRPA = "123456789",
@@ -216,6 +239,8 @@ namespace transportePDFApi.Controllers
                 ASIENTOS = "5",
                 MARCA_4 = "Volkswagen",
                 NRO_4 = "NRO004",
+                MARCA_5 = "Audi",
+                NRO_5 = "NRO005",
                 FECHA_EMISION = DateTime.Now,
                 FECHA_VIGENCIA = new DateTime(2025, 12, 31)
             };
