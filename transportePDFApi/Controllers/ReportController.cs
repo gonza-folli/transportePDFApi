@@ -6,6 +6,7 @@ using iText.Forms.Fields;
 using System.Linq;
 using transportePDFApi.Helpers;
 using transportePDFApi.Model;
+using transportePDFApi.Services;
 
 namespace transportePDFApi.Controllers
 {
@@ -14,8 +15,9 @@ namespace transportePDFApi.Controllers
     public class ReportController : ControllerBase
     {
         private readonly IDictionary<string, Action<PdfFormField, string, VehiculoMunicipalModel>> _fieldKeyActionBinding;
+        private readonly IReportService _reportService;
 
-        public ReportController() {
+        public ReportController(IReportService reportService   ) {
 
             _fieldKeyActionBinding = new Dictionary<string, Action<PdfFormField, string, VehiculoMunicipalModel>>
                 {
@@ -43,11 +45,17 @@ namespace transportePDFApi.Controllers
                     {"FECHA_EMISION", VehiculosMunicipalidadesReportHelper.SetFechaEmisionField},
                     {"FECHA_VIGENCIA", VehiculosMunicipalidadesReportHelper.SetFechaVigenciaField}
                 };
+
+            _reportService = reportService;
+
         }
 
 
 
-        [HttpGet(Name = "GetReport")]
+
+
+
+        [HttpGet("vehiculomunicipal",   Name = "GetReportVehiculoMunicipal")]
         public IActionResult GetReporteVehículosMunicipalidades ()
         {
 
@@ -82,36 +90,11 @@ namespace transportePDFApi.Controllers
 
 
 
-            var pdfStream = new MemoryStream();
+            byte[] bytes = _reportService.generateReportVehiculoMunicipal(_fieldKeyActionBinding, vehiculoMunicipalModel);
 
-            string pdfPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Reportes", "CAU Vehiculos de Municipalidades (c).pdf");
+            //pdfDoc.Close();
 
-            // Abre el PDF
-            PdfReader pdfReader = new PdfReader(pdfPath);
-            pdfReader.SetUnethicalReading(true);
-
-            PdfDocument pdfDoc = new PdfDocument(pdfReader, new PdfWriter(pdfStream));
-
-            PdfAcroForm form = PdfAcroForm.GetAcroForm(pdfDoc, false);
-            // Obtiene los campos del formulario
-            IDictionary<string, PdfFormField> fields = form.GetAllFormFields();
-            
-            // Itera sobre los campos del formulario
-            foreach (KeyValuePair<string, PdfFormField> field in fields)
-            {
-                string fieldName = field.Key;
-                PdfFormField fieldValue = field.Value;
-                if (_fieldKeyActionBinding.TryGetValue(fieldName, out var action ))
-                {
-                    action.Invoke(fieldValue, fieldName, vehiculoMunicipalModel);
-                }
-
-                Console.WriteLine($"Nombre del Campo: {fieldName}, Valor del Campo: {fieldValue.GetValueAsString()}");
-            }
-
-            pdfDoc.Close();
-
-            byte[] bytes = pdfStream.ToArray();
+            //byte[] bytes = pdfStream.ToArray();
 
             return File(bytes, "application/pdf", "nombreDePrueba");
 
